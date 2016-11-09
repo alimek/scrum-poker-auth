@@ -6,16 +6,16 @@ use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository
 {
-    public function findOneByCredentials($login, $pass)
+    public function findOneByCredentials($login, $password)
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $query = $qb
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $query = $queryBuilder
             ->select('user')
-            ->from('AppBundle:Entity', 'user')
+            ->from('AppBundle\Entity\User', 'user')
             ->where('loginName = :login')
             ->andWhere('password = :password')
             ->setParameter('login', $login)
-            ->setParameter('password', $pass)
+            ->setParameter('password', $password)
             ->getQuery();
 
         return $query->getResult();
